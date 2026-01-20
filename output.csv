@@ -1,0 +1,4 @@
+Model,Price,Performance,Camera,Battery,Topsis Score,Rank
+A,25000,8,7,4000,0.48128791186611913,2
+B,30000,9,8,4500,0.9999999878887291,1
+C,20000,7,6,3800,0.0,3
