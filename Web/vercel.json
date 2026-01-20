@@ -17,6 +17,13 @@
     {
       "src": "/api/(.*)",
       "dest": "/server/app.py"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/dist/index.html"
     }
   ]
 }
