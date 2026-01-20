@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "Web/client/package.json",
+      "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
         "buildCommand": "npm run build",
@@ -9,18 +9,14 @@
       }
     },
     {
-      "src": "Web/server/app.py",
+      "src": "server/app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/Web/server/app.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/Web/client/dist/$1"
+      "dest": "/server/app.py"
     }
   ]
 }
