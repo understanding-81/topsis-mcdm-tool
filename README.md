@@ -30,8 +30,8 @@ This project provides:
   https://pypi.org/project/topsis-decision-analysis/
 
 - **Live Deployment on Render:**  
-  Frontend (Static) : https://topsis-frontend.onrender.com
-  Backend (Python Flask) : https://topsis-backend-tfoi.onrender.com
+  - Frontend (Static) : https://topsis-frontend.onrender.com
+  - Backend (Python Flask) : https://topsis-backend-tfoi.onrender.com
 
 ---
 
@@ -83,13 +83,13 @@ It ranks alternatives based on:
 
 ### TOPSIS Web Service – User Interface
 
-![TOPSIS Web Interface](assets/topsis-web-ui.png)
+![TOPSIS Web Interface](assets/Screenshot%202026-01-21%20202650.png)
 
 *Web interface allowing users to upload CSV files, test with a sample dataset, enter weights and impacts, and compute TOPSIS rankings instantly.*
 
 ### Email Result Delivery
 
-![TOPSIS Email Result](assets/topsis-email-result.png)
+![TOPSIS Email Result](assets/Screenshot%202026-01-21%20202751.png)
 
 *Automated email sent to the user containing the TOPSIS results and download link.*
 
