@@ -36,7 +36,7 @@ export default function TopsisForm() {
       }
     } catch (err) {
       setError(err.response?.data?.error || "Server error");
-      setResult([]); // 🔑 prevents white screen
+      setResult([]); // prevents white screen
     } finally {
       setLoading(false);
     }
@@ -55,11 +55,27 @@ export default function TopsisForm() {
   return (
     <div className="card p-4 shadow">
       <form ref={formRef} onSubmit={handleSubmit}>
+        {/* Upload CSV */}
         <div className="mb-3">
           <label className="form-label">Upload CSV File</label>
-          <input type="file" name="file" className="form-control" required />
+          <input
+            type="file"
+            name="file"
+            className="form-control"
+            accept=".csv"
+            required
+          />
+
+          {/* Sample dataset helper */}
+          <small className="text-muted">
+            Don’t have a dataset?{" "}
+            <a href="/sample_input.csv" download>
+              Download sample CSV
+            </a>
+          </small>
         </div>
 
+        {/* Weights */}
         <div className="mb-3">
           <label className="form-label">Weights</label>
           <input
@@ -68,10 +84,12 @@ export default function TopsisForm() {
             className="form-control"
             value={weights}
             onChange={(e) => setWeights(e.target.value)}
+            placeholder="e.g. 1,2,3,4"
             required
           />
         </div>
 
+        {/* Impacts */}
         <div className="mb-3">
           <label className="form-label">Impacts</label>
           <input
@@ -80,10 +98,16 @@ export default function TopsisForm() {
             className="form-control"
             value={impacts}
             onChange={(e) => setImpacts(e.target.value)}
+            placeholder="e.g. +,+,-,+"
             required
           />
+          <small className="text-muted">
+            Use <strong>+</strong> for benefit criteria and{" "}
+            <strong>-</strong> for cost criteria
+          </small>
         </div>
 
+        {/* Email option */}
         <div className="form-check mb-2">
           <input
             className="form-check-input"
@@ -109,6 +133,7 @@ export default function TopsisForm() {
 
         {error && <div className="alert alert-danger">{error}</div>}
 
+        {/* Buttons */}
         <div className="d-grid gap-2">
           <button className="btn btn-primary" disabled={loading}>
             {loading ? "Processing..." : "Calculate TOPSIS"}
@@ -123,6 +148,7 @@ export default function TopsisForm() {
         </div>
       </form>
 
+      {/* Result table */}
       {result.length > 0 && (
         <>
           <hr />
