@@ -1,13 +1,13 @@
 import emailjs from "@emailjs/browser";
 
-export const sendResultEmail = async (toEmail, resultLink) => {
+export function sendResultEmail(toEmail, resultLink) {
   return emailjs.send(
-    "YOUR_SERVICE_ID",
-    "YOUR_TEMPLATE_ID",
+    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
     {
       to_email: toEmail,
       result_link: resultLink,
     },
-    "YOUR_PUBLIC_KEY"
+    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
   );
-};
+}
