@@ -1,9 +1,9 @@
 export default function ResultTable({ data }) {
-  if (!data || data.length === 0) return null;
+  if (!Array.isArray(data) || data.length === 0) return null;
 
   return (
-    <div className="table-responsive mt-3">
-      <table className="table table-bordered table-striped">
+    <div className="table-responsive">
+      <table className="table table-bordered">
         <thead>
           <tr>
             {Object.keys(data[0]).map((key) => (
@@ -14,8 +14,8 @@ export default function ResultTable({ data }) {
         <tbody>
           {data.map((row, i) => (
             <tr key={i}>
-              {Object.values(row).map((value, j) => (
-                <td key={j}>{value}</td>
+              {Object.values(row).map((val, j) => (
+                <td key={j}>{val}</td>
               ))}
             </tr>
           ))}
