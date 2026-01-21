@@ -29,8 +29,9 @@ This project provides:
 - **PyPI Package:**  
   https://pypi.org/project/topsis-decision-analysis/
 
-- **Live Deployment:**  
-  Frontend (Static) + Backend (Python Flask) deployed on Render
+- **Live Deployment on Render:**  
+  Frontend (Static) : https://topsis-frontend.onrender.com
+  Backend (Python Flask) : https://topsis-backend-tfoi.onrender.com
 
 ---
 
