@@ -1,6 +1,6 @@
-import emailjs from "emailjs-com";
 import { useState, useRef } from "react";
 import api from "../services/api";
+import { sendResultEmail } from "../services/email";
 import ResultTable from "./ResultTable";
 
 export default function TopsisForm() {
@@ -8,12 +8,12 @@ export default function TopsisForm() {
 
   const [weights, setWeights] = useState("");
   const [impacts, setImpacts] = useState("");
-  const [email, setEmail] = useState("");
-  const [sendMail, setSendMail] = useState(false);
-
   const [result, setResult] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [sendEmail, setSendEmail] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,11 +22,18 @@ export default function TopsisForm() {
     setLoading(true);
 
     const formData = new FormData(e.target);
-    formData.append("send_mail", sendMail);
 
     try {
       const res = await api.post("/api/topsis", formData);
       setResult(res.data.table);
+
+      // 📧 Send email using EmailJS
+      if (sendEmail && email) {
+        const downloadLink =
+          window.location.origin + res.data.download;
+
+        await sendResultEmail(email, downloadLink);
+      }
     } catch (err) {
       setError(err.response?.data?.error || "Server error");
     } finally {
@@ -38,22 +45,32 @@ export default function TopsisForm() {
     formRef.current.reset();
     setWeights("");
     setImpacts("");
-    setEmail("");
-    setSendMail(false);
     setResult([]);
     setError("");
+    setSendEmail(false);
+    setEmail("");
   };
 
   return (
     <div className="card p-4 shadow">
       <form ref={formRef} onSubmit={handleSubmit}>
+        {/* Upload CSV */}
         <div className="mb-3">
           <label className="form-label">Upload CSV File</label>
-          <input type="file" name="file" className="form-control" required />
+          <input
+            type="file"
+            name="file"
+            className="form-control"
+            accept=".csv"
+            required
+          />
         </div>
 
+        {/* Weights */}
         <div className="mb-3">
-          <label className="form-label">Weights (comma separated)</label>
+          <label className="form-label">
+            Weights (comma separated)
+          </label>
           <input
             type="text"
             name="weights"
@@ -65,40 +82,42 @@ export default function TopsisForm() {
           />
         </div>
 
+        {/* Impacts */}
         <div className="mb-3">
-          <label className="form-label">Impacts (comma separated)</label>
+          <label className="form-label">
+            Impacts (comma separated)
+          </label>
           <input
             type="text"
             name="impacts"
             className="form-control"
-            placeholder="+,+,-,+"
+            placeholder="+,-,+,-"
             value={impacts}
             onChange={(e) => setImpacts(e.target.value)}
             required
           />
         </div>
 
-        {/* EMAIL OPTION */}
+        {/* Email checkbox */}
         <div className="form-check mb-3">
           <input
-            className="form-check-input"
             type="checkbox"
-            id="sendMail"
-            checked={sendMail}
-            onChange={(e) => setSendMail(e.target.checked)}
+            className="form-check-input"
+            checked={sendEmail}
+            onChange={(e) => setSendEmail(e.target.checked)}
           />
-          <label className="form-check-label" htmlFor="sendMail">
+          <label className="form-check-label">
             Send result to email
           </label>
         </div>
 
-        {sendMail && (
+        {/* Email input */}
+        {sendEmail && (
           <div className="mb-3">
             <input
               type="email"
-              name="email"
               className="form-control"
-              placeholder="Enter email address"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -106,10 +125,17 @@ export default function TopsisForm() {
           </div>
         )}
 
-        {error && <div className="alert alert-danger">{error}</div>}
+        {/* Error */}
+        {error && (
+          <div className="alert alert-danger">{error}</div>
+        )}
 
+        {/* Buttons */}
         <div className="d-grid gap-2">
-          <button className="btn btn-primary" disabled={loading}>
+          <button
+            className="btn btn-primary"
+            disabled={loading}
+          >
             {loading ? "Processing..." : "Calculate TOPSIS"}
           </button>
 
@@ -123,6 +149,7 @@ export default function TopsisForm() {
         </div>
       </form>
 
+      {/* Result */}
       {result.length > 0 && (
         <>
           <hr />
