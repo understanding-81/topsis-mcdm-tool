@@ -1,13 +1,13 @@
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
-export function sendResultEmail(toEmail, resultLink) {
+export const sendResultEmail = async (toEmail, resultLink) => {
   return emailjs.send(
-    "YOUR_SERVICE_ID",     // from EmailJS
-    "YOUR_TEMPLATE_ID",    // auto-reply template
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
     {
       to_email: toEmail,
-      result_link: resultLink
+      result_link: resultLink,
     },
-    "YOUR_PUBLIC_KEY"      // EmailJS public key
+    "YOUR_PUBLIC_KEY"
   );
-}
+};
