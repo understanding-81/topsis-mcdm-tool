@@ -1,6 +1,5 @@
-import api from "../api";
 import { useState, useRef } from "react";
-import api from "../services/api";
+import api from "../api";
 import ResultTable from "./ResultTable";
 
 export default function TopsisForm() {
