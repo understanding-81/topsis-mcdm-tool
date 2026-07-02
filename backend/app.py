@@ -72,7 +72,11 @@ def topsis_api():
         if item.strip()
     ]
 
-    df = pd.read_csv(file)
+    try:
+        df = pd.read_csv(file)
+    except (pd.errors.EmptyDataError, pd.errors.ParserError):
+        return jsonify({"error": "Uploaded file is not a valid CSV"}), 400
+
     criteria_count = df.shape[1] - 1
 
     if len(weights) != criteria_count:
@@ -98,8 +102,10 @@ def topsis_api():
 @app.route("/api/download/<filename>")
 def download_file(filename):
     safe_name = secure_filename(filename)
+    if not safe_name:
+        return jsonify({"error": "Result file not found"}), 404
     output_path = OUTPUT_DIR / safe_name
-    if not output_path.exists():
+    if not output_path.is_file():
         return jsonify({"error": "Result file not found"}), 404
     return send_file(output_path, as_attachment=True)
 
