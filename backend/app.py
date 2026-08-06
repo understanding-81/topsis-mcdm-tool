@@ -2,17 +2,18 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import pandas as pd
 import numpy as np
-import os
+from pathlib import Path
+from uuid import uuid4
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
 
-UPLOAD_DIR = "uploads"
-OUTPUT_DIR = "outputs"
+UPLOAD_DIR = Path("uploads")
+OUTPUT_DIR = Path("outputs")
 
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+UPLOAD_DIR.mkdir(exist_ok=True)
+OUTPUT_DIR.mkdir(exist_ok=True)
 
 @app.route("/")
 def health():
@@ -47,24 +48,50 @@ def run_topsis(df, weights, impacts):
 @app.route("/api/topsis", methods=["POST"])
 def topsis_api():
     file = request.files.get("file")
-    weights = request.form.get("weights")
-    impacts = request.form.get("impacts")
+    weights_raw = request.form.get("weights", "")
+    impacts_raw = request.form.get("impacts", "")
 
     if not file:
         return jsonify({"error": "CSV file required"}), 400
 
-    weights = list(map(float, weights.split(",")))
-    impacts = impacts.split(",")
+    if not weights_raw or not impacts_raw:
+        return jsonify({"error": "Weights and impacts are required"}), 400
 
-    df = pd.read_csv(file)
+    try:
+        weights = [
+            float(item.strip())
+            for item in weights_raw.split(",")
+            if item.strip()
+        ]
+    except ValueError:
+        return jsonify({"error": "Weights must be comma-separated numbers"}), 400
 
-    if len(weights) != df.shape[1] - 1:
+    impacts = [
+        item.strip()
+        for item in impacts_raw.split(",")
+        if item.strip()
+    ]
+
+    try:
+        df = pd.read_csv(file)
+    except (pd.errors.EmptyDataError, pd.errors.ParserError):
+        return jsonify({"error": "Uploaded file is not a valid CSV"}), 400
+
+    criteria_count = df.shape[1] - 1
+
+    if len(weights) != criteria_count:
         return jsonify({"error": "Weights count mismatch"}), 400
+
+    if len(impacts) != criteria_count:
+        return jsonify({"error": "Impacts count mismatch"}), 400
+
+    if any(impact not in {"+", "-"} for impact in impacts):
+        return jsonify({"error": "Impacts must be + or -"}), 400
 
     result_df = run_topsis(df, weights, impacts)
 
-    output_file = f"topsis_result_{os.getpid()}.csv"
-    output_path = os.path.join(OUTPUT_DIR, output_file)
+    output_file = f"topsis_result_{uuid4().hex}.csv"
+    output_path = OUTPUT_DIR / output_file
     result_df.to_csv(output_path, index=False)
 
     return jsonify({
@@ -74,7 +101,13 @@ def topsis_api():
 
 @app.route("/api/download/<filename>")
 def download_file(filename):
-    return send_file(os.path.join(OUTPUT_DIR, filename), as_attachment=True)
+    safe_name = secure_filename(filename)
+    if not safe_name:
+        return jsonify({"error": "Result file not found"}), 404
+    output_path = OUTPUT_DIR / safe_name
+    if not output_path.is_file():
+        return jsonify({"error": "Result file not found"}), 404
+    return send_file(output_path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
