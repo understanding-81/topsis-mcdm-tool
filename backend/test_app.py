@@ -1,4 +1,5 @@
 import io
+import math
 import tempfile
 import unittest
 from pathlib import Path
@@ -129,6 +130,21 @@ class TopsisApiTest(unittest.TestCase):
                 for row in response.get_json()["table"]
             ],
             [(0.5, 1), (0.5, 1)],
+        )
+
+    def test_large_finite_values_preserve_ranking(self):
+        response = self.post_csv(
+            b"name,cost,quality\na,1e308,1e307\nb,1e307,1e308\n",
+            weights="1e308,1",
+            impacts="-,+",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        table = response.get_json()["table"]
+        self.assertTrue(all(math.isfinite(row["Topsis Score"]) for row in table))
+        self.assertEqual(
+            [(row["name"], row["Rank"]) for row in table],
+            [("a", 2), ("b", 1)],
         )
 
     def test_download_rejects_invalid_and_missing_names(self):

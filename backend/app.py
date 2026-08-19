@@ -51,22 +51,41 @@ def run_topsis(df, weights, impacts):
     data = df.iloc[:, 1:].values.astype(float)
     weights = np.array(weights)
 
-    norm = np.sqrt((data**2).sum(axis=0))
-    normalized = np.divide(data, norm, out=np.zeros_like(data), where=norm != 0)
+    column_scale = np.abs(data).max(axis=0)
+    scaled_data = np.divide(
+        data,
+        column_scale,
+        out=np.zeros_like(data),
+        where=column_scale != 0,
+    )
+    norm = np.sqrt((scaled_data**2).sum(axis=0))
+    normalized = np.divide(
+        scaled_data,
+        norm,
+        out=np.zeros_like(data),
+        where=norm != 0,
+    )
     weighted = normalized * weights
+    weighted_scale = np.abs(weighted).max()
+    distance_values = np.divide(
+        weighted,
+        weighted_scale,
+        out=np.zeros_like(weighted),
+        where=weighted_scale != 0,
+    )
 
     ideal_best, ideal_worst = [], []
 
     for i, impact in enumerate(impacts):
         if impact == "+":
-            ideal_best.append(weighted[:, i].max())
-            ideal_worst.append(weighted[:, i].min())
+            ideal_best.append(distance_values[:, i].max())
+            ideal_worst.append(distance_values[:, i].min())
         else:
-            ideal_best.append(weighted[:, i].min())
-            ideal_worst.append(weighted[:, i].max())
+            ideal_best.append(distance_values[:, i].min())
+            ideal_worst.append(distance_values[:, i].max())
 
-    d_best = np.sqrt(((weighted - ideal_best) ** 2).sum(axis=1))
-    d_worst = np.sqrt(((weighted - ideal_worst) ** 2).sum(axis=1))
+    d_best = np.sqrt(((distance_values - ideal_best) ** 2).sum(axis=1))
+    d_worst = np.sqrt(((distance_values - ideal_worst) ** 2).sum(axis=1))
 
     distance = d_best + d_worst
     scores = np.divide(
